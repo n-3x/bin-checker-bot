@@ -12,11 +12,11 @@
     $start_msg = $_ENV['START_MSG']; 
 
 if($message == "/start"){
-    send_message($chat_id,$message_id, "***Hey $firstname \nUse !bin xxxxxx to Check BIN \n$start_msg***");
+    send_message($chat_id,$message_id, "__Hi there, $username \nCommand : !bin \n$start_msg__");
 }
 
 //Bin Lookup
-if(strpos($message, "!bin") === 0){
+if(strpos($message, "!bin")||(strpos($message, "/bin")||(strpos($message, ".bin") === 0){
     $bin = substr($message, 5);
     $curl = curl_init();
     curl_setopt_array($curl, [
@@ -49,17 +49,21 @@ $flag = $data['data']['countryInfo']['emoji'];
  $result1 = $data['result'];
 
     if ($result1 == true) {
-    send_message($chat_id,$message_id, "***✅ Valid BIN
-Bin: $bin
-Brand: $brand
-Level: $level
-Bank: $bank
-Country: $country $flag
-Type:$type
-Checked By @$username ***");
+    send_message($chat_id,$message_id, "*** ✔️ $bin (VALID) ***
+__***[checked by @$username]***__
+
+***▪BIN:*** $bin
+***▪BRAND:*** $brand
+***▪BANK:*** $bank
+***▪LEVEL:*** $level
+***▪COUNTRY:*** $country $flag
+***▪TYPE:*** $type
+▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁
+
+");
     }
 else {
-    send_message($chat_id,$message_id, "***Enter Valid BIN***");
+    send_message($chat_id,$message_id, "*** 🔴 $bin (INVALID)***\n ▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁▁");
 }
 }
     function send_message($chat_id,$message_id, $message){
